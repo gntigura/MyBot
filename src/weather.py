@@ -1,6 +1,5 @@
 import requests
 
-# Helper function to get weather data
 def get_weather(country):
     try:
         # Make a request to OpenWeatherMap API for weather data
@@ -26,7 +25,6 @@ def get_weather(country):
     except Exception as e:
         return None, str(e)
 
-# Helper function to get time zone data
 def get_timezone(latitude, longitude):
     try:
         # Make a request to TimeZoneDB API for time zone data
