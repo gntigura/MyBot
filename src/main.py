@@ -17,7 +17,7 @@ async def on_ready():
 
 @bot.command()
 async def help_me(ctx):
-    response = "ShhhBot has different commands \n !bum : to find who's the bum \n !weather location : to give the weather of a location \n !latex message :  to compile a message into LaTex (might not work well, still in developpement) \n !random number : lets the bot choose a random number from range(0,number) (Developping this command to create a small guessing game) \n !Shhh : the bot will send a famous picture \n !hello: the bot will greet to the author of the message"
+    response = "ShhhBot has different commands \n !bum : to find who's the bum (doesn't work anymore, still need some fixing) \n !weather location : to give the weather of a location \n !latex message :  to compile a message into LaTex (might not work well, still in developpement) \n !random number : lets the bot choose a random number from range(0,number) (Developping this command to create a small guessing game) \n !Shhh : the bot will send a famous picture \n !hello: the bot will greet to the author of the message"
     await ctx.send("You thought I was here to help you? :joy_cat: :thumbsdown:")
     await asyncio.sleep(10.0)
     await ctx.send("I'm just kidding")
@@ -25,9 +25,9 @@ async def help_me(ctx):
 
 @bot.command()
 async def bum(message):
+    ## Doesn't work, searching a way for a bot-user interaction if possible ##
 
-
-    #So the bot doesn't respond to himself
+    ##So the bot doesn't respond to himself ##
     if message.author.id == bot.user.id:
         return
     if message.content.startswith("!bum"):
@@ -39,7 +39,7 @@ async def bum(message):
         try:
             response = bot.wait_for('message', check=check,timeout=1000.0)
         except asyncio.TimeoutError :
-            return await message.send("{} must really be a bum if it took you more than 10 seconds to make a choice".format(ctx.author.name))
+            return await message.send("{} must really be a bum if it took you more than 10 seconds to make a choice".format(message.author.name))
         
         if response.upper() == "YANN":
             await message.send("The Boy isn't a bum, he is your savior!")
@@ -102,7 +102,7 @@ async def Shhh(ctx):
 def main():
     #No need to run the code, this is not the right token
 
-    #bot.run("MTI5NTA0MjY1NTIwMTM5ODc4NA.Gpy24u.dawQjAEx1C0JX4vxPlxhvORHh2BmZYMK9sjojQ")
+    #bot.run("MTI5NTA0MjY1NTIwMTM5ODc4NA.GCDg1z.eMpLAZVDtzbL4R1Xyz8IB0zqldJqi_KzKihLN4")
     return
 
 if __name__ == "__main__":
