@@ -7,9 +7,20 @@ from datetime import datetime
 import asyncio
 import os
 
+class ShhhBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        intents = kwargs.pop('intents', discord.Intents.default())
+        command_prefix = kwargs.pop('command_prefix', "!")
+
+        super().__init__(command_prefix=command_prefix, intents=intents, *args, **kwargs)
+
+
+    async def on_ready(self):
+        print(f"ShhhBot is ready to perfom as {self.user} (ID: {self.user.id})")
+
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents) 
+bot = ShhhBot(command_prefix="!", intents=intents) 
 
 @bot.event
 async def on_ready():
@@ -19,18 +30,18 @@ async def on_ready():
 async def help_me(ctx):
     response = "ShhhBot has different commands \n !bum : to find who's the bum (doesn't work anymore, still need some fixing) \n !weather location : to give the weather of a location \n !latex message :  to compile a message into LaTex (might not work well, still in developpement) \n !random number : lets the bot choose a random number from range(0,number) (Developping this command to create a small guessing game) \n !Shhh : the bot will send a famous picture \n !hello: the bot will greet to the author of the message"
     await ctx.send("You thought I was here to help you? :joy_cat: :thumbsdown:")
-    await asyncio.sleep(10.0)
+    await asyncio.sleep(2.0)
     await ctx.send("I'm just kidding")
     await ctx.send(response)
 
 @bot.command()
-async def bum(message):
+async def bum(ctx, *, message: str):
     ## Doesn't work, searching a way for a bot-user interaction if possible ##
-
+    """
     ##So the bot doesn't respond to himself ##
     if message.author.id == bot.user.id:
         return
-    if message.content.startswith("!bum"):
+    if True:
         await message.send("Who's the bum? You got 10 seconds to respond (be careful on what you respond)")
 
         def check(m):
@@ -40,14 +51,14 @@ async def bum(message):
             response = bot.wait_for('message', check=check,timeout=1000.0)
         except asyncio.TimeoutError :
             return await message.send("{} must really be a bum if it took you more than 10 seconds to make a choice".format(message.author.name))
-        
-        if response.upper() == "YANN":
-            await message.send("The Boy isn't a bum, he is your savior!")
-            await message.send("ShhhBot has the permissions to ban users, so be careful of not spamming this command ;)")
-            return
-        else:
-            await message.send("{} IS A BUM!!".format(response.upper()))
-            return
+    """
+    if message.upper() == "YANN":
+        await ctx.send("The Boy isn't a bum, he is your savior!")
+        await ctx.send("ShhhBot has the permissions to ban users, so be careful of not spamming this command ;)")
+        return
+    else:
+        await ctx.send("{} IS A BUM!!".format(ctx.upper()))
+        return
 
 
 
@@ -100,9 +111,8 @@ async def Shhh(ctx):
     await ctx.send("The famous picture is lost :joy_cat: :thumbsdown:")
 
 def main():
-    #No need to run the code, this is not the right token
-
-    #bot.run("MTI5NTA0MjY1NTIwMTM5ODc4NA.GCDg1z.eMpLAZVDtzbL4R1Xyz8IB0zqldJqi_KzKihLN4")
+    
+    #bot.run("Your_token")
     return
 
 if __name__ == "__main__":
