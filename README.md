@@ -1,6 +1,7 @@
 # MyBot
 
-![Yann's GitHub stats](https://github-readme-stats.vercel.app/api?username=gntigura&show_icons=true&theme=tokyonight)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=gntigura&layout=compact&show_icons=true&theme=radical&count_private=true&include_all_commits=true&langs_count=10&hide=jupyter-notebook)
+
 
 A example of a discord bot that can be used for most of the basic tasks that are required from a bot on a dscord server.
 
