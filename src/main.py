@@ -112,7 +112,7 @@ async def Shhh(ctx):
 
 def main():
     
-    #bot.run("Your_token")
+    bot.run("MTI5NTA0MjY1NTIwMTM5ODc4NA.GfUE9v.5Rvnscbf-gk-1V_Z-GGu2_15M0gxlsFqjY4zXY")
     return
 
 if __name__ == "__main__":
