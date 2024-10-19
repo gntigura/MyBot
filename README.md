@@ -1,4 +1,7 @@
 # MyBot
+
+![Yann's GitHub stats](https://github-readme-stats.vercel.app/api?username=gntigura&show_icons=true&theme=tokyonight)
+
 A example of a discord bot that can be used for most of the basic tasks that are required from a bot on a dscord server.
 
 ## How to use it?
