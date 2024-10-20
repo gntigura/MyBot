@@ -14,4 +14,4 @@ def render_latex_to_image(latex_code):
 
     # Use Pillow to open the image
     image = Image.open(buf)
-    return image
+    return buf

@@ -6,6 +6,7 @@ import random as r
 from datetime import datetime
 import asyncio
 import os
+from bumbot import BumBot
 
 class ShhhBot(commands.Bot):
     def __init__(self, *args, **kwargs):
@@ -21,10 +22,13 @@ class ShhhBot(commands.Bot):
 intents = discord.Intents.default()
 intents.message_content = True
 bot = ShhhBot(command_prefix="!", intents=intents) 
+bumbot = BumBot(intents=intents)
+
 
 @bot.event
 async def on_ready():
     return (f"Logged in as {bot.user}")
+
 
 @bot.command()
 async def help_me(ctx):
@@ -34,37 +38,11 @@ async def help_me(ctx):
     await ctx.send("I'm just kidding")
     await ctx.send(response)
 
-@bot.command()
-async def bum(ctx, *, message: str):
-    ## Doesn't work, searching a way for a bot-user interaction if possible ##
-    """
-    ##So the bot doesn't respond to himself ##
-    if message.author.id == bot.user.id:
-        return
-    if True:
-        await message.send("Who's the bum? You got 10 seconds to respond (be careful on what you respond)")
-
-        def check(m):
-            return  m.author == message.author
-    
-        try:
-            response = bot.wait_for('message', check=check,timeout=1000.0)
-        except asyncio.TimeoutError :
-            return await message.send("{} must really be a bum if it took you more than 10 seconds to make a choice".format(message.author.name))
-    """
-    if message.upper() == "YANN":
-        await ctx.send("The Boy isn't a bum, he is your savior!")
-        await ctx.send("ShhhBot has the permissions to ban users, so be careful of not spamming this command ;)")
-        return
-    else:
-        await ctx.send("{} IS A BUM!!".format(ctx.upper()))
-        return
-
-
 
 @bot.command()
 async def hello(ctx):
     await ctx.send("I ain't no bum Bot sayin hello :joy_cat: :thumbsdown:")
+
 
 @bot.command()
 async def weather(ctx, *, country):
@@ -78,6 +56,7 @@ async def weather(ctx, *, country):
     
     await ctx.send(response)
 
+
 @bot.command()
 async def latex(ctx, *, latex_code: str):
     try:
@@ -88,6 +67,7 @@ async def latex(ctx, *, latex_code: str):
         return
     except Exception as e:
         await ctx.send("{} while producing the latex".format(e))
+
 
 @bot.command()
 async def random(ctx, *, number: int):
@@ -102,6 +82,7 @@ async def random(ctx, *, number: int):
         await ctx.send("{} is not a number".format(number))
         return
     
+
 @bot.command()
 async def Shhh(ctx):
     paths = os.path.join('/Users', 'yann', 'Desktop', 'MyBot', 'MyBot', 'src', 'IMG_6700.JPG')
@@ -110,10 +91,26 @@ async def Shhh(ctx):
         return
     await ctx.send("The famous picture is lost :joy_cat: :thumbsdown:")
 
-def main():
+@bot.command()
+@bot.has_permissions(ban_members=True)
+async def tired(ctx, member: discord.Member, *, reason=None):
+    try:
+        await member.ban(reason=reason)
+        await ctx.send(f"Shhh bro fr!!!")
+
+        await asyncio.sleep(10.0)
+
+        await ctx.guild.unban(member)
+        await ctx.send("I really hope you're good because I won't hesitate to use this command again")
     
-    bot.run("MTI5NTA0MjY1NTIwMTM5ODc4NA.GlTV12.vhDTyiyKH1owdVQAp5XyV9ZeLO9A3LJYk31cgY")
-    return
+    except discord.Forbidden:
+        await ctx.send("Only The Boy can do this!")
+    
+    except discord.HTTPException:
+        await ctx.send("An error occurred while banning/unbanning the user.")
+
+async def run_bot():
+    await asyncio.gather(bot.start("your_token", reconnect=False), bumbot.start("your_second_token", reconnect=False))
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(run_bot())
