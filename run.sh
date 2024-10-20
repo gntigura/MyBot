@@ -1,8 +1,7 @@
 #!/bin/zsh
 
 # Exchange the values of the return value to 1 if you want to execute the else in the code
-k=0
-if $k; then
+if ./return 0; then
 echo "I'm about to run Shhbot for you!"
 echo ""
 cd /Users/yann/Desktop/MyBot/MyBot/src
