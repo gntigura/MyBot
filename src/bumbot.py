@@ -23,9 +23,9 @@ class BumBot(discord.Client):
             
             if str(response).upper() == "YANN":
                 await message.channel.send("The Boy isn't a bum, he is your savior!")
-                await message.channel.send("ShhhBot has the permissions to ban users, so be careful of not spamming this command ;)")
+                await message.channel.send("BumBot has the permissions to ban users, so be careful of not spamming this command ;)")
             else:
-                await message.channel.send(f"{str(response).upper()} IS A BUM! :thumbsdown")
+                await message.channel.send(f"{str(response).upper()} IS A BUM! :thumbsdown:")
 
     async def on_message_delete(self, message):
         msg = f"{message.author} has deleted the following message: {message.content}"
